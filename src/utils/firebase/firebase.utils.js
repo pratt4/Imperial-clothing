@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { initializeApp } from 'firebase/app';
 import {
   getAuth,
@@ -7,6 +6,8 @@ import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
 } from 'firebase/auth';
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
 
@@ -18,6 +19,7 @@ const firebaseConfig = {
   messagingSenderId: "293742247466",
   appId: "1:293742247466:web:1c1969cc26d00e23658d53"
 };
+
 
 const firebaseApp = initializeApp(firebaseConfig);
 
@@ -75,3 +77,8 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
 
   return await signInWithEmailAndPassword(auth, email, password);
 };
+
+export const signOutUser = async () => await signOut(auth);
+
+export const onAuthStateChangedListener = (callback) =>
+  onAuthStateChanged(auth, callback);

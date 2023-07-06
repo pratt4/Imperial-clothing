@@ -1,37 +1,52 @@
-import { Fragment } from 'react';
-import { Outlet,Link } from 'react-router-dom';
-// import { ReactComponent as Crown } from '../../assets/crown.svg';
+import { Fragment, useContext } from 'react';
+import { Outlet, Link } from 'react-router-dom';
 
-import './navigation.styles.scss'
+import { UserContext } from '../../contexts/user.context';
+import { CartContext } from '../../contexts/cart.context';
 
-import CrownSvg from '../../assets/crown.svg';
+import CartIcon from '../../components/cart-icon/cart-icon.component';
+import CartDropdown from '../../components/cart-dropdown/cart-dropdown.component';
 
-const Crown = () => {
+import { signOutUser } from '../../utils/firebase/firebase.utils';
+
+import './navigation.styles.scss';
+
+import  CrownSvg  from '../../assets/crown.svg';
+const CrwnLogo = () => {
   return <img src={CrownSvg} alt="Crown" />;
 };
 
+const Navigation = () => {
+  const { currentUser } = useContext(UserContext);
+  const { isCartOpen } = useContext(CartContext);
 
-const Navigation=()=>{
-  return(
-     
+  return (
     <Fragment>
-
-   
-      <div className="navigation">
+      <div className='navigation'>
         <Link className='logo-container' to='/'>
-        <Crown className="logo" />
+          <CrwnLogo className='logo' />
         </Link>
-        <div className="nav-links-container">
-          <Link className='nav-link' to='/shop' > SHOP</Link>
-          <Link className='nav-link' to='/auth' > SIGN IN</Link>
-        </div>
-      </div>
-      <Outlet/>
-      
-    </Fragment>
+        <div className='nav-links-container'>
+          <Link className='nav-link' to='/shop'>
+            SHOP
+          </Link>
 
-    
-  )
-}
+          {currentUser ? (
+            <span className='nav-link' onClick={signOutUser}>
+              SIGN OUT
+            </span>
+          ) : (
+            <Link className='nav-link' to='/auth'>
+              SIGN IN
+            </Link>
+          )}
+          <CartIcon />
+        </div>
+        {isCartOpen && <CartDropdown />}
+      </div>
+      <Outlet />
+    </Fragment>
+  );
+};
 
 export default Navigation;
