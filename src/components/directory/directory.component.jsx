@@ -1,13 +1,15 @@
-/* eslint-disable react/prop-types */
-import CatergoryItem from "../category-item/catergory-item.component"
+import DirectoryItem from '../directory-item/directory-item.component';
 
-export default function Directory({categories}) {
+import './directory.styles.scss';
+
+const Directory = ({ categories }) => {
   return (
-    <div className="categories-container">
+    <div className='directory-container'>
       {categories.map((category) => (
-        <CatergoryItem key={category.id} category={category}/>
+        <DirectoryItem key={category.id} category={category} />
       ))}
-     
-      </div>
-  )
-}
+    </div>
+  );
+};
+
+export default Directory;
