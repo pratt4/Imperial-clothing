@@ -1,4 +1,4 @@
-# Crown Clothing 👑👗
+# Imperial Clothing 👑👗
 
 Crown Clothing is a React web app that allows users to browse and purchase clothing items. It includes features such as Google authentication using Firebase and state management using Redux Toolkit.
 
