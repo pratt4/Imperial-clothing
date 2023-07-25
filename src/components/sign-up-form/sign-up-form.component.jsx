@@ -1,9 +1,12 @@
 import { useState } from 'react';
 
+import { useNavigate } from "react-router-dom";
+
 import FormInput from '../form-input/form-input.component';
 import Button from '../button/button.component';
 
 import {
+  auth,
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
 } from '../../utils/firebase/firebase.utils';
@@ -18,6 +21,8 @@ const defaultFormFields = {
 };
 
 const SignUpForm = () => {
+
+  const navigate = useNavigate();
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
@@ -40,11 +45,16 @@ const SignUpForm = () => {
       );
 
       await createUserDocumentFromAuth(user, { displayName });
+      auth.signOut();
       resetFormFields();
+      // navigate("/");
+      alert('Signup was successful!');
     } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
         alert('Cannot create user, email already in use');
-      } else {
+      }else if (error.code === 'auth/weak-password') {
+        alert('Password should be at least 6 characters');} 
+      else {
         console.log('user creation encountered an error', error);
       }
     }
@@ -83,6 +93,7 @@ const SignUpForm = () => {
           label='Password'
           type='password'
           required
+          
           onChange={handleChange}
           name='password'
           value={password}

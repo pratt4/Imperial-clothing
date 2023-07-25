@@ -28,4 +28,20 @@
     margin-left: auto;
     font-size: 36px;
   }
+
+  button {
+    margin-top: 30px;
+    padding: 10px 20px;
+    font-size: 18px;
+    color: white;
+    background-color: #4285f4; /* Google blue color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #357ae8; /* Darken the button color when hovering */
+    }
+  }
 }

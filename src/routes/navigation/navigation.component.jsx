@@ -1,5 +1,8 @@
+import 'regenerator-runtime/runtime'
 import { Fragment, useContext } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet ,useNavigate} from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMicrophone } from '@fortawesome/free-solid-svg-icons';
 
 import CartIcon from '../../components/cart-icon/cart-icon.component';
 import CartDropdown from '../../components/cart-dropdown/cart-dropdown.component';
@@ -7,36 +10,54 @@ import CartDropdown from '../../components/cart-dropdown/cart-dropdown.component
 import { UserContext } from '../../contexts/user.context';
 import { CartContext } from '../../contexts/cart.context';
 
-// import { ReactComponent as CrwnLogo } from '../../assets/crown.svg';
 import { signOutUser } from '../../utils/firebase/firebase.utils';
 
-import  CrownSvg  from '../../assets/crown.svg';
+import CrownSvg  from '../../assets/crown.svg';
 const CrwnLogo = () => {
   return <img src={CrownSvg} alt="Crown" />;
 };
+
+import SpeechRecognitionButton from './SpeechRecognitionButton';
 
 import {
   NavigationContainer,
   LogoContainer,
   NavLinks,
   NavLink,
+  SearchContainer,
+  LogoAndNameContainer,
+  LogoTitle
 } from './navigation.styles';
 
 const Navigation = () => {
+  const navigate=useNavigate();
+  const handleSignOut = async () => {
+    await signOutUser();
+    alert('Sign out successful!');
+    navigate('/auth');
+  };
+
   const { currentUser } = useContext(UserContext);
   const { isCartOpen } = useContext(CartContext);
 
   return (
     <Fragment>
       <NavigationContainer>
-        <LogoContainer to='/'>
+      <LogoAndNameContainer to='/'>
+        <LogoContainer to='/' >
           <CrwnLogo />
         </LogoContainer>
-        <NavLinks>
-          <NavLink to='/shop'>SHOP</NavLink>
+          <LogoTitle>Imperial Clothing</LogoTitle>
 
+      </LogoAndNameContainer>
+        <NavLinks>
+        <SearchContainer>
+          
+          <SpeechRecognitionButton /> 
+        </SearchContainer>
+          <NavLink to='/shop'>SHOP</NavLink>
           {currentUser ? (
-            <NavLink as='span' onClick={signOutUser}>
+            <NavLink as='span' onClick={handleSignOut}>
               SIGN OUT
             </NavLink>
           ) : (

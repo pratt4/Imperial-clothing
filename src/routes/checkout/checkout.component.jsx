@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState, useEffect } from 'react';
 
 import { CartContext } from '../../contexts/cart.context';
 
@@ -8,7 +8,41 @@ import './checkout.styles.scss'
 
 
 const Checkout = () => {
+
+  const [amount, setAmount] = useState(0);
+
   const { cartItems, cartTotal } = useContext(CartContext);
+
+  useEffect(() => {
+    // Set amount to cartTotal whenever cartTotal changes
+    setAmount(cartTotal);
+  }, [cartTotal]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (amount === "") {
+      alert("please enter amount");
+    }
+    else {
+      var options = {
+        key: "rzp_test_GrnkuyKAxQjq4Z",
+        key_secret: "rzp_test_GrnkuyKAxQjq4Z",
+        amount: amount,
+        currency: "INR",
+        name: "test",
+        description: "testing",
+        handler: function (response) {
+          alert(response.razorpay_payment_id);
+        },
+        prefill: {
+          name: "test",
+          email: "test@gmail.com",
+        }
+      };
+      var pay = new window.Razorpay(options);
+      pay.open();
+    }
+  }
 
   return (
     <div className='checkout-container'>
@@ -33,6 +67,7 @@ const Checkout = () => {
         <CheckoutItem key={cartItem.id} cartItem={cartItem} />
       ))}
       <div className='total'>TOTAL: ${cartTotal}</div>
+      <button className='total' onClick={handleSubmit}>Pay </button>
     </div>
   );
 };
