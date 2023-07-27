@@ -1,8 +1,8 @@
 import 'regenerator-runtime/runtime'
+
 import { Fragment, useContext } from 'react';
 import { Outlet ,useNavigate} from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMicrophone } from '@fortawesome/free-solid-svg-icons';
+
 
 import CartIcon from '../../components/cart-icon/cart-icon.component';
 import CartDropdown from '../../components/cart-dropdown/cart-dropdown.component';
@@ -52,7 +52,7 @@ const Navigation = () => {
       </LogoAndNameContainer>
         <NavLinks>
         <SearchContainer>
-          
+        <span>Click here for voice-based navigation 👉</span>
           <SpeechRecognitionButton /> 
         </SearchContainer>
           <NavLink to='/shop'>SHOP</NavLink>

@@ -1,5 +1,7 @@
 import { useContext, useState, useEffect } from 'react';
 
+import { useNavigate } from 'react-router-dom';
+
 import { CartContext } from '../../contexts/cart.context';
 
 import CheckoutItem from '../../components/checkout-item/checkout-item.component';
@@ -8,7 +10,7 @@ import './checkout.styles.scss'
 
 
 const Checkout = () => {
-
+  const navigate=useNavigate();
   const [amount, setAmount] = useState(0);
 
   const { cartItems, cartTotal } = useContext(CartContext);
@@ -27,12 +29,13 @@ const Checkout = () => {
       var options = {
         key: "rzp_test_GrnkuyKAxQjq4Z",
         key_secret: "rzp_test_GrnkuyKAxQjq4Z",
-        amount: amount,
+        amount: amount*100,
         currency: "INR",
         name: "test",
         description: "testing",
         handler: function (response) {
-          alert(response.razorpay_payment_id);
+          alert("Order Placed Successfully");
+          // navigate('/');
         },
         prefill: {
           name: "test",
@@ -66,7 +69,7 @@ const Checkout = () => {
       {cartItems.map((cartItem) => (
         <CheckoutItem key={cartItem.id} cartItem={cartItem} />
       ))}
-      <div className='total'>TOTAL: ${cartTotal}</div>
+      <div className='total'>TOTAL: ₹ {cartTotal}</div>
       <button className='total' onClick={handleSubmit}>Pay </button>
     </div>
   );

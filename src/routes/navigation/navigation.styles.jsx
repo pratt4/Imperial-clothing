@@ -41,6 +41,13 @@ export const SearchContainer = styled.div`
   margin-left: auto;
   /* margin-right: auto; */
   /* margin-left: 40px;  */
+
+  gap: 10px;  
+
+  span {
+    font-size: 14px;
+    color: #555;
+  }
 `;
 
 // Search input field

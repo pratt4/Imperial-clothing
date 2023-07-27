@@ -44,17 +44,26 @@ const SpeechRecognitionButton = () => {
   
   const phraseToRoute = {
     'go to shop': '/shop',
+    'go to shop.': '/shop',
     'go to home': '/',
+    'go to home.': '/',
     'sign in': '/auth',
+    'sign in.': '/auth',
     'show me some hats': '/shop/hats',
+    'show me some hats.': '/shop/hats',
     'hats': '/shop/hats',
+    'hats.': '/shop/hats',
+    'Hats.': '/shop/hats',
     'show me some jackets': '/shop/jackets',
     'jackets': '/shop/jackets',
     'show me some sneakers': '/shop/sneakers',
     'sneakers': '/shop/sneakers',
+    'Sneakers': '/shop/sneakers',
+    'Sneakers.': '/shop/sneakers',
     'show me all items': '/shop',
     'go to cart': '/checkout',
-    
+    'Check out.': '/checkout',
+    'check out': '/checkout'
   };
 
   const { transcript, listening, resetTranscript } = useSpeechRecognition();
@@ -94,7 +103,7 @@ const SpeechRecognitionButton = () => {
       <SpeechRecognitionDialog open={dialogOpen}>
         {listening ? 'Listening...' : 'Stopped'}
         <br />
-        {transcript || 'Say "show me some hats/jackets/sneakers" '}
+        {transcript || 'Say "show me some hats/jackets/sneakers .... (ps : This doesnt work in mozilla firefox 😢)" '}
       </SpeechRecognitionDialog>
     </>
   );
