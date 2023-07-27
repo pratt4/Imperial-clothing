@@ -13,7 +13,7 @@ Crown Clothing is a React web app that allows users to browse and purchase cloth
 ## Technologies Used
 
 🔥 React
-🔥 Redux Toolkit
+\
 🔥 Firebase
 
 ## Getting Started
